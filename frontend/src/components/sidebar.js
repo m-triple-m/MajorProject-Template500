@@ -17,6 +17,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -90,6 +91,8 @@ export default function Sidebar({ children, options, title }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const navigate = useNavigate();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -132,9 +135,10 @@ export default function Sidebar({ children, options, title }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {options.map(({ name, icon, link }) => (
             <ListItemButton
-              key={text}
+              onClick={(e) => navigate(link)}
+              key={name}
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
@@ -148,9 +152,9 @@ export default function Sidebar({ children, options, title }) {
                   justifyContent: "center",
                 }}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {icon}
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           ))}
         </List>
