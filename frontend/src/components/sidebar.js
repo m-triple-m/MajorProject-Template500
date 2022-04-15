@@ -119,7 +119,7 @@ export default function Sidebar({ children, options, title }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            {title}
           </Typography>
         </Toolbar>
       </AppBar>
